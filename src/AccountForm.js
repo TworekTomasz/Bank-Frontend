@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AccountForm = () => {
+const AccountForm = ({ addAccount }) => {
   const [accountData, setAccountData] = useState({
     accountNumber: '',
     balance: '',
@@ -32,6 +32,7 @@ const AccountForm = () => {
       const response = await axios.post('http://localhost:8080/accounts', data);
       console.log('Account created:', response.data);
       // Optionally, you can clear the form after submission
+      addAccount(response.data);
       setAccountData({
         accountNumber: '',
         balance: '',

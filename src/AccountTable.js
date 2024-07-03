@@ -1,22 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const AccountTable = () => {
-  const [accounts, setAccounts] = useState([]);
-
-  useEffect(() => {
-    fetchAccounts();
-  }, []);
-
-  const fetchAccounts = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/accounts');
-      setAccounts(response.data);
-    } catch (error) {
-      console.error('Error fetching accounts:', error);
-    }
-  };
-
+const AccountTable = ({ accounts }) => {
   return (
     <div>
       <h2>Account Table</h2>
