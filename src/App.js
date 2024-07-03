@@ -1,6 +1,7 @@
 import './App.css';
-import AccountTable from './AccountTable';
-import AccountForm from './AccountForm';
+import AccountTable from './account/AccountTable';
+import AccountForm from './account/AccountForm';
+import TransactionExample from './account/TransactionExample';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -27,8 +28,9 @@ function App() {
 
   return (
     <div className="App">
-       <AccountForm addAccount={addAccount} />
+      <AccountForm addAccount={addAccount} />
       <AccountTable accounts={accounts} />
+      <TransactionExample accounts={accounts}/>
     </div>
   );
 }
