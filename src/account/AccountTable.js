@@ -17,7 +17,7 @@ const AccountTable = ({ accounts }) => {
             <tr key={account.accountNumber}>
               <td>{account.accountNumber}</td>
               <td>{account.balance}</td>
-              <td>{account.ownerDto.name}</td>
+              <td>{account !== null && account.ownerDto !== null ? account.ownerDto.name : ''}</td>
             </tr>
           ))}
         </tbody>

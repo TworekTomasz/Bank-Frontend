@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 
-const TransactionExample = ({ accounts }) => {
+const TransactionExample = ({ accounts, refreshAccounts }) => {
 
     const [selectedAccountFrom, setSelectedAccountFrom] = useState(null);
     const [selectedAccountTo, setSelectedAccountTo] = useState(null);
@@ -30,14 +30,20 @@ const TransactionExample = ({ accounts }) => {
         //TODO: Call external, API use selectedAccountFrom and selectedAccountTo to update proper values
         try {
             // My idea 
-            const response = await axios.post('http://your-api-endpoint/transactions', {
-                sourceAccount: selectedAccountFrom.accountNumber,
-                destinationAccount: selectedAccountTo.accountNumber,
-                amount: transactionAmount,
-                description: `Transfer from ${selectedAccountFrom.accountNumber} to ${selectedAccountTo.accountNumber}`
+            const response = await axios.post('http://localhost:8080/transactions', {
+                senderAccount: {
+                    accountNumber: selectedAccountFrom.accountNumber,
+                },
+                recipientAccount: {
+                    accountNumber: selectedAccountTo.accountNumber,
+                },
+                amount: transactionAmount
+                // description: `Transfer from ${selectedAccountFrom.accountNumber} to ${selectedAccountTo.accountNumber}`
             });
 
             console.log("Transaction was made:", response.data);
+
+            refreshAccounts();
         } catch (error) {
             console.error("Error making transaction:", error.message);
         }
@@ -61,8 +67,6 @@ const TransactionExample = ({ accounts }) => {
                 />
                 <button onClick={makeTransation}>Make transaction</button>
             </div>
-            <div>{selectedAccountFrom && selectedAccountFrom.accountNumber}</div>
-            <div>{selectedAccountTo && selectedAccountTo.accountNumber}</div>
         </>
     );
 };

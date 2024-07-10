@@ -10,7 +10,7 @@ function App() {
   const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
-    fetchAccounts();
+    refreshAccounts();
   }, []);
 
   const fetchAccounts = async () => {
@@ -26,11 +26,15 @@ function App() {
     setAccounts([...accounts, newAccount]);
   };
 
+  const refreshAccounts = () => {
+    fetchAccounts();
+  };
+
   return (
     <div className="App">
       <AccountForm addAccount={addAccount} />
       <AccountTable accounts={accounts} />
-      <TransactionExample accounts={accounts}/>
+      <TransactionExample accounts={accounts} refreshAccounts={refreshAccounts} />
     </div>
   );
 }
